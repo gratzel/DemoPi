@@ -7,8 +7,10 @@ from display import *
 
 ch_offsets = [0, 0, 0]
 
+rssi_slowcount = 1
+
 def my_callback(addr,value,rssi):
-  global ch_offsets
+  global ch_offsets, rssi_slowcount
   #print "Ch" + str(addr) + " = " + str(value)
   obj = [myApp.root.bar_red, myApp.root.bar_green, myApp.root.bar_yellow][addr]
   # check flag value for returning from sleep
@@ -21,11 +23,16 @@ def my_callback(addr,value,rssi):
   new_value = value + ch_offsets[addr]
   new_value = max(0,new_value)
   #new_value = min(100,new_value)
-  obj.bar_value = new_value
-  obj.bar_text = str(new_value)
+  if new_value != obj.bar_value:
+    obj.bar_value = new_value
+    obj.bar_text = str(new_value)
   # display rssi
-  myApp.root.bar_blue.bar_text = str(rssi) + " dBm"
-  myApp.root.bar_blue.bar_value = 1.5*(92+rssi)
+  if rssi_slowcount <= 0:
+    myApp.root.bar_blue.bar_text = str(rssi) + " dBm"
+    myApp.root.bar_blue.bar_value = 1.5*(92+rssi)
+    rssi_slowcount = 8
+  else:
+    rssi_slowcount -= 1
 
 
 ENABLE_SCANNER = True
