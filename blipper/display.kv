@@ -1,0 +1,157 @@
+# #: import display display #(causes double load!)
+# #: import bar 
+
+SensorRoot:
+
+<SensorRoot>:
+  bar_red: bar_red
+  bar_green: bar_green
+  bar_yellow: bar_yellow
+  bar_blue: bar_blue
+  #exit_text: exit_text
+  orientation: "vertical"
+  ActionBar:
+    ActionView:
+      use_separator: True
+      ActionPrevious:
+        title: "WSM-BL-241 Demo"
+        with_previous: False
+      ActionButton:
+        text: "About"
+        on_press: app.about()
+      ActionButton:
+        text: "Reboot"
+        on_press: app.reboot_confirm()
+      ActionButton:
+        text: "Shutdown"
+        on_press: app.shutdown_confirm()
+      ActionOverflow:
+        ActionButton:
+          id: exit_text
+          text: "Exit"
+          on_press: app.exit()
+      #   ActionButton:
+      #     text: "Settings"
+      #     #on_press: app.open_settings()
+      #   ActionButton:
+      #     text: "Shutdown"
+      #     on_press: app.shutdown()
+  BoxLayout:
+    height: "430dp"
+    size_hint_y: None
+    BarWidget:
+      id: bar_red
+      #size_hint_x: 1
+      bar_width: "150dp"
+      bar_value: 25
+      bar_text: "25"
+      bar_legend: "Red"
+      bar_color: [255,0,0,1]
+    BarWidget:
+      id: bar_green
+      #size_hint_x: 1
+      bar_width: "150dp"
+      bar_value: 50
+      bar_text: "50"
+      bar_legend: "Green"
+      bar_color: [0,255,0,1]
+    BarWidget:
+      id: bar_yellow
+      #size_hint_x: 1
+      bar_width: "150dp"
+      bar_value: 75
+      bar_text: "75"
+      bar_legend: "Yellow"
+      bar_color: [255,255,0,1]
+    BarWidget:
+      id: bar_blue
+      #size_hint_x: =0.2
+      bar_width: "50dp"
+      #bar_value: 0
+      bar_value: 20
+      bar_text: "-68 dBm"
+      bar_legend: "RSSI"
+      bar_color: [0,0,255,1]
+
+<BarWidget>:
+  orientation: "vertical"
+  #padding: 100, 0, 100, 10
+  Bar:
+    width: root.bar_width
+    size_hint: None, 1
+    pos_hint: {'center_x': 0.5}
+    id: bar
+    color: root.bar_color
+    value: root.bar_value #slider.value
+    animated: True
+    anim_duration: 0.1
+    #color: picker.color
+    #orientation: orientation.text
+    anim_type: 'linear'
+  Label:
+    size_hint: None, 0.1
+    pos_hint: {'center_x': 0.5}
+    text: root.bar_text
+  Label:
+    size_hint: None, 0.1
+    pos_hint: {'center_x': 0.5}
+    text: root.bar_legend
+  #Button:
+  #  size_hint: None, 0.1
+  #  pos_hint: {'center_x': 0.5}
+  #  id: barbutton
+  #  on_release: root.button_press()
+  #Slider:
+  #  id: slider
+  #  value: root.bar_value
+  #  max: 100
+  #  min: 0
+
+<ConfirmationDialog>:
+  orientation: "vertical"
+  FloatLayout:
+    canvas.before:
+      Color:
+        rgba: 0.1, 0.1, 0.1, 1
+      Rectangle:
+        # self here refers to the widget i.e BoxLayout
+        pos: self.pos
+        size: self.size  
+    #size: root.size
+    pos_hint: {'center_x': .5, 'center_y': .5}
+    size_hint: 1, 0.75
+    Label:
+      halign: 'center'
+      size_hint: 0.5, 0.5
+      background_color: [1,0,0,1]
+      pos_hint: {'center_x': 0.5,'center_y': .5, }
+      markup: True
+      text: root.dialog_text
+  BoxLayout:
+    canvas.before:
+      Color:
+        rgba: 0.1, 0.1, 0.1, 1
+      Rectangle:
+        # self here refers to the widget i.e BoxLayout
+        pos: self.pos
+        size: self.size  
+    #size: root.size
+    pos_hint: {'center_x': .5, 'center_y': .5}
+    size_hint: 1, 0.25
+    Button:
+      text: "No"
+      #size: 1, 0.2
+      #size_hint: 0.15, 0.5
+      #size: 0.25, 0.25
+      pos_hint: {'center_x': .5, 'center_y': 0.5}
+      #size_hint: 0.2, 0.2
+      on_press: app.dismiss()
+    Button:
+      text: "Yes"
+      #size: 1, 0.2
+      #size_hint: 0.15, 0.5
+      #size: 0.25, 0.25
+      pos_hint: {'center_x': .5, 'center_y': 0.5}
+      #size_hint: 0.2, 0.2
+      on_press: app.confirm()
+      

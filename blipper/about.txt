@@ -1,0 +1,16 @@
+[b]Demo Instructions[/b]                                
+
+
+1.  Rotate the control knob to adjust the 
+colored bars.
+
+2.  Pressing the control knob advances to the next
+color:  [color=ff0000]RED[/color], [color=00ff00]GREEN[/color], [color=ffff00]YELLOW[/color].
+
+3.  The [color=5555ff]BLUE[/color] bar indicates Received Signal Strength.
+
+4.  After a few seconds of inactivity, the control
+knob will go to sleep.  Rotate again to wake it.
+
+5.  If the unit malfunctions, try the Reboot or
+Shutdown buttons on the display.
