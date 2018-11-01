@@ -14,3 +14,5 @@ knob will go to sleep.  Rotate again to wake it.
 
 5.  If the unit malfunctions, try the Reboot or
 Shutdown buttons on the display.
+
+(c) Murata 2016
